@@ -53,8 +53,34 @@ function Weather() {
   return (
     <div>
       <div className={styles.weatherContainer}>
-        <div className={styles.topInfo}></div>
-        <div className={styles.bottomInfo}></div>
+        <div className={styles.topInfo}>
+          <div className={styles.topLeftInfo}>
+            <span className={styles.city}>서울특별시</span>
+            <span className={styles.temp}>21°</span>
+          </div>
+          <div className={styles.topRightInfo}>
+            <img className={styles.weatherIcon} src="img/sun.png" />
+            <span>맑음</span>
+            <span>최고: 21° 최저: 5°</span>
+          </div>
+        </div>
+        <div className={styles.bottomInfo}>
+          {hourlyWeather.map((weather, idx) => {
+            if (idx < 6) {
+              return (
+                <div className={styles.weatherBox}>
+                  <span>{`${weather.dt.getHours()}시`}</span>
+                  <img
+                    className={styles.weatherIcon}
+                    src="img/sun.png"
+                    style={{ width: 24, height: 24 }}
+                  />
+                  <span>{`${Math.round(weather.temp)}°`}</span>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );
