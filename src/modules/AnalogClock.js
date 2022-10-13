@@ -3,7 +3,7 @@ import styles from "./AnalogClock.module.css";
 
 const DEG = 6;
 
-function Clock() {
+function AnalogClock() {
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
@@ -70,4 +70,4 @@ function Clock() {
   );
 }
 
-export default Clock;
+export default AnalogClock;
