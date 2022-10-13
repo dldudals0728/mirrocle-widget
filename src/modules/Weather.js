@@ -1,19 +1,60 @@
 import { useEffect, useState } from "react";
 import styles from "./Weather.module.css";
+import {
+  BsFillCloudFill,
+  BsFillBrightnessHighFill,
+  BsFillCloudHaze2Fill,
+  BsCloudSnowFill,
+  BsCloudRainFill,
+  BsCloudDrizzleFill,
+  BsFillCloudLightningFill,
+} from "react-icons/bs";
+import { API_KEYS } from "../temp/API";
 
 const icons = {
-  Clouds: "cloudy",
-  Clear: "day-sunny",
-  Atmosphere: "cloudy-gusts",
-  Snow: "snow",
-  Rain: "rains",
-  Drizzle: "rain",
-  Thunderstorm: "lightning",
+  Clouds: {
+    icon: (
+      <BsFillCloudFill
+        className={styles.weatherIcon}
+        style={{ color: "whitesmoke" }}
+      />
+    ),
+    describe: "흐림",
+  },
+  Clear: {
+    icon: (
+      <BsFillBrightnessHighFill
+        className={styles.weatherIcon}
+        style={{ color: "orange" }}
+      />
+    ),
+    describe: "맑음",
+  },
+  Atmosphere: {
+    icon: <BsFillCloudHaze2Fill className={styles.weatherIcon} />,
+    describe: "안개",
+  },
+  Snow: {
+    icon: <BsCloudSnowFill className={styles.weatherIcon} />,
+    describe: "눈",
+  },
+  Rain: {
+    icon: <BsCloudRainFill className={styles.weatherIcon} />,
+    describe: "비",
+  },
+  Drizzle: {
+    icon: <BsCloudDrizzleFill className={styles.weatherIcon} />,
+    describe: "적은 비",
+  },
+  Thunderstorm: {
+    icon: <BsFillCloudLightningFill className={styles.weatherIcon} />,
+    describe: "번개",
+  },
 };
 
 function Weather() {
   const [hourlyWeather, setHourlyWeather] = useState([]);
-  const [dailyWeather, setDailyWeather] = useState();
+  const [dailyWeather, setDailyWeather] = useState([]);
   useEffect(() => {
     getWeather();
   }, []);
@@ -22,7 +63,7 @@ function Weather() {
     /**
      * @todo API KEY는 서버에 넣어 두었다가 가져오는 걸로 구현해야 함
      */
-    const API_KEY = "b7091e2ddfd542ffd87c4ad99290c25b";
+    const API_KEY = API_KEYS.openweathermap;
     const latitude = 37;
     const longitude = 127;
     const response = await fetch(
@@ -38,6 +79,7 @@ function Weather() {
     console.log("=====================");
     console.log(convertHoulyWeather);
     setHourlyWeather(convertHoulyWeather);
+    setDailyWeather(convertDailyWeather);
   };
 
   const convertUTCToTime = (weatherData) => {
@@ -52,36 +94,38 @@ function Weather() {
 
   return (
     <div>
-      <div className={styles.weatherContainer}>
-        <div className={styles.topInfo}>
-          <div className={styles.topLeftInfo}>
-            <span className={styles.city}>서울특별시</span>
-            <span className={styles.temp}>21°</span>
+      {hourlyWeather.length !== 0 && (
+        <div className={styles.weatherContainer}>
+          <div className={styles.topInfo}>
+            <div className={styles.topLeftInfo}>
+              <span className={styles.city}>서울특별시</span>
+              <span className={styles.temp}>{`${Math.round(
+                hourlyWeather[0].feels_like
+              )}°`}</span>
+            </div>
+            <div className={styles.topRightInfo}>
+              {icons[hourlyWeather[0].weather[0].main].icon}
+              <span>{icons[hourlyWeather[0].weather[0].main].describe}</span>
+              <span>{`최고: ${Math.round(
+                dailyWeather[0].temp.max
+              )}° 최저: ${Math.round(dailyWeather[0].temp.min)}°`}</span>
+            </div>
           </div>
-          <div className={styles.topRightInfo}>
-            <img className={styles.weatherIcon} src="img/sun.png" />
-            <span>맑음</span>
-            <span>최고: 21° 최저: 5°</span>
+          <div className={styles.bottomInfo}>
+            {hourlyWeather.map((weather, idx) => {
+              if (idx < 6) {
+                return (
+                  <div className={styles.weatherBox} key={idx}>
+                    <span>{`${weather.dt.getHours()}시`}</span>
+                    {icons[weather.weather[0].main].icon}
+                    <span>{`${Math.round(weather.temp)}°`}</span>
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
-        <div className={styles.bottomInfo}>
-          {hourlyWeather.map((weather, idx) => {
-            if (idx < 6) {
-              return (
-                <div className={styles.weatherBox}>
-                  <span>{`${weather.dt.getHours()}시`}</span>
-                  <img
-                    className={styles.weatherIcon}
-                    src="img/sun.png"
-                    style={{ width: 24, height: 24 }}
-                  />
-                  <span>{`${Math.round(weather.temp)}°`}</span>
-                </div>
-              );
-            }
-          })}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
