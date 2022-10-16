@@ -7,7 +7,10 @@ body {
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  background: #091921;
+  /* 낮 */
+  /* background: linear-gradient(to bottom, rgb(0, 105, 255), rgb(35, 150, 250)); */
+  /* 오후 */
+  background: linear-gradient(to bottom, rgb(25, 70, 135), rgb(128, 160, 205));
   width: 480px;
   height: 240px;
   padding: 5px 10px;

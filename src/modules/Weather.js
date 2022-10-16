@@ -52,9 +52,12 @@ const icons = {
   },
 };
 
-function Weather() {
+function Weather(props) {
+  const { width: widgetWidth, height: widgetHeight } = props;
+  const widgetSize = widgetWidth === 1 ? "small" : "large";
   const [hourlyWeather, setHourlyWeather] = useState([]);
   const [dailyWeather, setDailyWeather] = useState([]);
+  const [isRainy, setIsRainy] = useState(false);
   useEffect(() => {
     getWeather();
   }, []);
@@ -80,6 +83,7 @@ function Weather() {
     console.log(convertHoulyWeather);
     setHourlyWeather(convertHoulyWeather);
     setDailyWeather(convertDailyWeather);
+    checkWeather(convertHoulyWeather);
   };
 
   const convertUTCToTime = (weatherData) => {
@@ -92,38 +96,94 @@ function Weather() {
     return data;
   };
 
+  const checkWeather = (houlyData) => {
+    const today = new Date().toDateString();
+    console.log(houlyData[0].dt.toDateString());
+    let todayWeatherRain = false;
+
+    houlyData.forEach((value) => {
+      if (today === value.dt.toDateString()) {
+        todayWeatherRain =
+          value.weather[0].description.includes("rain") ||
+          value.weather[0].description.includes("drizzle");
+      }
+    });
+
+    setIsRainy(todayWeatherRain);
+  };
+
   return (
     <div>
+      <div className={styles.toast}>오늘은 비 소식이 있어요.</div>
       {hourlyWeather.length !== 0 && (
-        <div className={styles.weatherContainer}>
-          <div className={styles.topInfo}>
-            <div className={styles.topLeftInfo}>
-              <span className={styles.city}>서울특별시</span>
-              <span className={styles.temp}>{`${Math.round(
-                hourlyWeather[0].feels_like
-              )}°`}</span>
+        <div
+          className={styles.weatherContainer}
+          style={{ width: widgetSize === "small" ? 240 : 480 }}
+        >
+          {widgetSize === "small" ? (
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  paddingLeft: 10,
+                  paddingTop: 10,
+                }}
+              >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span style={{ fontSize: "1.8em" }}>서울특별시</span>
+                  <span className={styles.temp}>{`${Math.round(
+                    hourlyWeather[0].temp
+                  )}°`}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <span>{icons[hourlyWeather[0].weather[0].main].icon}</span>
+                  <span>
+                    {icons[hourlyWeather[0].weather[0].main].describe}
+                  </span>
+                  <span>
+                    {`최고: ${Math.round(
+                      dailyWeather[0].temp.max
+                    )}° 최저: ${Math.round(dailyWeather[0].temp.min)}°`}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className={styles.topRightInfo}>
-              {icons[hourlyWeather[0].weather[0].main].icon}
-              <span>{icons[hourlyWeather[0].weather[0].main].describe}</span>
-              <span>{`최고: ${Math.round(
-                dailyWeather[0].temp.max
-              )}° 최저: ${Math.round(dailyWeather[0].temp.min)}°`}</span>
+          ) : (
+            <div>
+              <div className={styles.topInfo}>
+                <div className={styles.topLeftInfo}>
+                  <span className={styles.city}>서울특별시</span>
+                  <span className={styles.temp}>{`${Math.round(
+                    hourlyWeather[0].temp
+                  )}°`}</span>
+                </div>
+                <div className={styles.topRightInfo}>
+                  {icons[hourlyWeather[0].weather[0].main].icon}
+                  <span>
+                    {icons[hourlyWeather[0].weather[0].main].describe}
+                  </span>
+                  <span>{`최고: ${Math.round(
+                    dailyWeather[0].temp.max
+                  )}° 최저: ${Math.round(dailyWeather[0].temp.min)}°`}</span>
+                </div>
+              </div>
+              <div className={styles.bottomInfo}>
+                {hourlyWeather.map((weather, idx) => {
+                  if (idx < 6) {
+                    return (
+                      <div className={styles.weatherBox} key={idx}>
+                        <span>{`${weather.dt.getHours()}시`}</span>
+                        {icons[weather.weather[0].main].icon}
+                        <span>{`${Math.round(weather.temp)}°`}</span>
+                      </div>
+                    );
+                  }
+                })}
+              </div>
             </div>
-          </div>
-          <div className={styles.bottomInfo}>
-            {hourlyWeather.map((weather, idx) => {
-              if (idx < 6) {
-                return (
-                  <div className={styles.weatherBox} key={idx}>
-                    <span>{`${weather.dt.getHours()}시`}</span>
-                    {icons[weather.weather[0].main].icon}
-                    <span>{`${Math.round(weather.temp)}°`}</span>
-                  </div>
-                );
-              }
-            })}
-          </div>
+          )}
         </div>
       )}
     </div>

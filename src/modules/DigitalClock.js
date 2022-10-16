@@ -3,7 +3,7 @@ import styles from "./DigitalClock.module.css";
 
 const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-function DigitalClock() {
+function DigitalClock(props) {
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState("0");
@@ -42,9 +42,24 @@ function DigitalClock() {
       <div className={styles.clockLeft}>
         <div className={styles.days}>{day}</div>
       </div>
-      <div className={styles.clockRight}>
-        <div className={styles.date}>{`${year}-${month}-${date}`}</div>
-        <div className={styles.time}>{`${hour}:${minute}:${second}`}</div>
+      <div className={styles.clockRight} style={{ width: "90%" }}>
+        <div className={styles.date}>
+          <span style={{ fontSize: 32 }}>{`${month} / ${date}`}</span>
+          <span style={{ fontSize: 18 }}>{year}</span>
+        </div>
+        <div className={styles.time}>
+          <div>
+            <span>{`${hour} : ${minute}`}</span>
+          </div>
+          <div>
+            <span
+              style={{
+                fontSize: 42,
+                marginLeft: 12,
+              }}
+            >{`${second}`}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
