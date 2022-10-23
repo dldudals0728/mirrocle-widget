@@ -85,21 +85,36 @@ function App() {
   };
 
   useEffect(() => {
-    loadWidgetsInfo();
+    // loadWidgetsInfo();
   }, []);
 
   useEffect(() => {
-    createView();
+    // createView();
   }, [widgetInfo]);
+
+  const testFunc = async () => {
+    console.log("test function start");
+    const url =
+      "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/user/json";
+    const res = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const text = await res.text();
+    console.log(text);
+    console.log("test function end");
+  };
+  // testFunc();
   return (
     <div style={styles.mirrocleContainer}>
       {/* <Start /> */}
       {/* <AnalogClock /> */}
       {/* <DigitalClock /> */}
-      <Weather width={1} height={1} />
+      {/* <Weather width={2} height={1} /> */}
       {/* <ToDos /> */}
-      {/* <SeoulMetro /> */}
-      {/* <img src="img/weather-day.jpg" alt="weather" /> */}
+      <SeoulMetro />
     </div>
   );
 }

@@ -25,7 +25,7 @@ const icons = {
     icon: (
       <BsFillBrightnessHighFill
         className={styles.weatherIcon}
-        style={{ color: "orange" }}
+        style={{ color: "rgb(255, 215, 20)" }}
       />
     ),
     describe: "맑음",
