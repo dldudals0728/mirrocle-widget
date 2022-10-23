@@ -6,6 +6,8 @@ import SeoulMetro from "./modules/SeoulMetro";
 import Start from "./modules/Start";
 import ToDos from "./modules/ToDos";
 import Weather from "./modules/Weather";
+import News from "./modules/News";
+import Calendar from "./modules/Calendar";
 
 const widgets = {
   analogClock: <AnalogClock />,
@@ -114,7 +116,8 @@ function App() {
       {/* <DigitalClock /> */}
       {/* <Weather width={2} height={1} /> */}
       {/* <ToDos /> */}
-      <SeoulMetro />
+      <Calendar />
+      {/* <News /> */}
     </div>
   );
 }
