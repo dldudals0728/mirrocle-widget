@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mirrocle-widgets/static/css/main.15e30c75.css",
+    "main.js": "/mirrocle-widgets/static/js/main.59c8e597.js",
+    "static/js/787.42eb1403.chunk.js": "/mirrocle-widgets/static/js/787.42eb1403.chunk.js",
+    "index.html": "/mirrocle-widgets/index.html",
+    "main.15e30c75.css.map": "/mirrocle-widgets/static/css/main.15e30c75.css.map",
+    "main.59c8e597.js.map": "/mirrocle-widgets/static/js/main.59c8e597.js.map",
+    "787.42eb1403.chunk.js.map": "/mirrocle-widgets/static/js/787.42eb1403.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.15e30c75.css",
+    "static/js/main.59c8e597.js"
+  ]
+}
