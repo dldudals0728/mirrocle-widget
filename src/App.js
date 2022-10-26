@@ -23,7 +23,6 @@ function App() {
   const [widgetInfo, setWidgetInfo] = useState({});
   const [widgetList, setWidgetList] = useState([]);
 
-  const grid = [[], [], [], [], [], [], [], [], [], []];
   const loadWidgetsInfo = () => {
     const tempWidget = {
       0: {
@@ -69,30 +68,11 @@ function App() {
     setWidgetInfo(() => tempWidget);
   };
 
-  const createView = () => {
-    console.log(widgetInfo);
-    console.log(grid);
-    Object.keys(widgetInfo).map((key) => {
-      const widget = widgetInfo[key];
-      const x = widget.coordinate.x;
-      const y = widget.coordinate.y;
-      // grid[x][y] = widget.module_name;
-      for (let k = 0; k < widget.size.width; k++) {
-        for (let l = 0; l < widget.size.height; l++) {
-          grid[x + k][y + l] = widget.module_name;
-        }
-      }
-    });
-    console.log(grid);
-  };
+  const getAPIKey = async () => {};
 
   useEffect(() => {
-    // loadWidgetsInfo();
+    loadWidgetsInfo();
   }, []);
-
-  useEffect(() => {
-    // createView();
-  }, [widgetInfo]);
 
   const testFunc = async () => {
     console.log("test function start");
@@ -113,10 +93,10 @@ function App() {
     <div style={styles.mirrocleContainer}>
       {/* <Start /> */}
       {/* <AnalogClock /> */}
-      {/* <DigitalClock /> */}
+      <DigitalClock />
       {/* <Weather width={2} height={1} /> */}
       {/* <ToDos /> */}
-      <Calendar />
+      {/* <Calendar /> */}
       {/* <News /> */}
     </div>
   );
