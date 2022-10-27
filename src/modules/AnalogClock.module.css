@@ -1,9 +1,11 @@
+.container {
+  position: absolute;
+}
 .clockContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #091921;
-  /* width: 500px; */
 }
 
 .clock {

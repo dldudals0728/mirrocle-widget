@@ -53,7 +53,14 @@ const icons = {
 };
 
 function Weather(props) {
-  const { width: widgetWidth, height: widgetHeight } = props;
+  const moniter_width = 1536;
+  const moniter_height = 746;
+  const {
+    width: widgetWidth,
+    height: widgetHeight,
+    top: positiontop,
+    left: positionleft,
+  } = props;
   const widgetSize = widgetWidth === 1 ? "small" : "large";
   const [hourlyWeather, setHourlyWeather] = useState([]);
   const [dailyWeather, setDailyWeather] = useState([]);
@@ -63,6 +70,8 @@ function Weather(props) {
   }, []);
 
   const getWeather = async () => {
+    console.log(Math.round(moniter_width / 5) * widgetWidth);
+    console.log(window.innerHeight);
     /**
      * @todo API KEY는 서버에 넣어 두었다가 가져오는 걸로 구현해야 함
      */
@@ -118,7 +127,12 @@ function Weather(props) {
       {hourlyWeather.length !== 0 && (
         <div
           className={styles.weatherContainer}
-          style={{ width: widgetSize === "small" ? 240 : 480 }}
+          style={{
+            width:
+              widgetSize === "small"
+                ? `${Math.round(moniter_width / 5) * widgetWidth}%`
+                : `${Math.round(moniter_width / 5) * widgetWidth}%`,
+          }}
         >
           {widgetSize === "small" ? (
             <div>

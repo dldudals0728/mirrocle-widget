@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
-
 .clockContainer {
   display: flex;
-  flex-direction: row;
   background: #000;
   font-family: "Righteous", cursive;
-  padding: 25px 0;
+  position: absolute;
+  align-items: center;
 }
 
 .clockLeft {
@@ -14,6 +13,7 @@
 }
 
 .days {
+  color: white;
   font-size: 3.5em;
   font-weight: 700;
   transform: rotate(270deg);
@@ -29,6 +29,7 @@
 }
 
 .date {
+  color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -39,6 +40,7 @@
 }
 
 .time {
+  color: white;
   display: flex;
   flex-direction: row;
   font-size: 4em;

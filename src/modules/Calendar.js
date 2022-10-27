@@ -18,7 +18,7 @@ export default class DemoApp extends Component {
             googleCalendarId: "mokjohn98@gmail.com",
           }}
           eventDisplay={"block"}
-          height={"500px"}
+          height={"600px"}
         />
       </div>
     );

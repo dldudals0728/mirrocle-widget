@@ -4,6 +4,15 @@ import styles from "./AnalogClock.module.css";
 const DEG = 6;
 
 function AnalogClock(props) {
+  const moniter_width = 1536;
+  const moniter_height = 746;
+  const {
+    width: widgetWidth,
+    height: widgetHeight,
+    top: positiontop,
+    left: positionleft,
+  } = props;
+
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [second, setSecond] = useState(0);
@@ -30,21 +39,31 @@ function AnalogClock(props) {
   };
 
   return (
-    <div className={styles.clockContainer}>
-      <div className={styles.clock}>
-        <div
-          className={`${styles.hand} ${styles.hour}`}
-          style={{ transform: `rotateZ(${hour + minute / 12}deg)` }}
-        ></div>
-        <div
-          className={`${styles.hand} ${styles.minute}`}
-          style={{ transform: `rotateZ(${minute}deg)` }}
-        ></div>
-        <div
-          className={`${styles.hand} ${styles.second}`}
-          style={{ transform: `rotateZ(${second}deg)` }}
-        ></div>
-        {/* <div
+    <div
+      className={styles.container}
+      style={{
+        left: `${positionleft * 20}%`,
+        top: `${positiontop * 10}%`,
+        width: `${widgetWidth * 20}%`,
+        height: `${widgetHeight * 10}%`,
+      }}
+    >
+      <div className={styles.clockContainer}>
+        <div className={styles.clock}>
+          <div
+            className={`${styles.hand} ${styles.hour}`}
+            style={{ transform: `rotateZ(${hour + minute / 12}deg)` }}
+          ></div>
+          <div
+            className={`${styles.hand} ${styles.minute}`}
+            style={{ transform: `rotateZ(${minute}deg)` }}
+          ></div>
+          <div
+            className={`${styles.hand} ${styles.second}`}
+            style={{ transform: `rotateZ(${second}deg)` }}
+          ></div>
+
+          {/* <div
           style={{
             ...styles.hand,
             ...styles.hour,
@@ -65,6 +84,7 @@ function AnalogClock(props) {
             transform: `rotateZ(${second}deg)`,
           }}
         ></div> */}
+        </div>
       </div>
     </div>
   );
