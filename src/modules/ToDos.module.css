@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap");
+
 .toDosContainer {
   background: #000;
   padding: 20px 0;
@@ -5,14 +7,15 @@
 
 .toDo {
   background: #091921;
-  /* background: teal; */
   margin: 20px 0;
   padding: 10px 10px;
-  border-radius: 10px;
-  font-size: 1.5em;
+  border-radius: 5px;
+  font-size: 2em;
   box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05),
     inset 0 -15px 15px rgba(255, 255, 255, 0.05), 0 -5px 15px rgba(0, 0, 0, 0.3),
     inset 0 15px 15px rgba(0, 0, 0, 0.3);
 
-  border: 3px solid whitesmoke;
+  border: 2px solid rgb(44, 96, 194);
+  color: white;
+  font-family: "Gamja Flower", cursive;
 }

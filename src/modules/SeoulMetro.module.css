@@ -1,6 +1,6 @@
 .seoulSubwayContainer {
   padding: 12px;
-  width: 40vw;
+  border-radius: 30px;
 }
 
 .lineContainer {
@@ -25,7 +25,6 @@
 .sideStationContainer {
   display: flex;
   flex: 1;
-  color: white;
   border-radius: 20px;
   padding: 0 18px;
   height: 24px;
@@ -35,6 +34,7 @@
 .timeContainer {
   display: flex;
   flex-direction: row;
+  color: white;
 }
 
 .time {

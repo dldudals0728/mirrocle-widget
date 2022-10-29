@@ -41,6 +41,13 @@ function SeoulMetro(props) {
     nextStation: "",
   });
 
+  const {
+    width: widgetWidth,
+    height: widgetHeight,
+    top: positiontop,
+    left: positionleft,
+  } = props;
+
   const [leftTime, setLeftTime] = useState([]);
   const [rightTime, setRightTime] = useState([]);
 
@@ -163,7 +170,16 @@ function SeoulMetro(props) {
     getAPI();
   }, []);
   return (
-    <div className={styles.seoulSubwayContainer}>
+    <div
+      className={styles.seoulSubwayContainer}
+      style={{
+        left: `${positionleft * 20}%`,
+        top: `${positiontop * 10}%`,
+        width: `${widgetWidth * 20}%`,
+        height: `${widgetHeight * 10}%`,
+        position: "absoulte",
+      }}
+    >
       <div className={styles.lineContainer}>
         <div
           className={styles.sideStationContainer}
@@ -180,6 +196,7 @@ function SeoulMetro(props) {
             position: "absolute",
             left: "50%",
             transform: "translate(-50%, 0)",
+            color: "black",
           }}
         >
           {subwayStationName}

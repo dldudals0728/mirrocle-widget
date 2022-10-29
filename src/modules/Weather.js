@@ -53,8 +53,6 @@ const icons = {
 };
 
 function Weather(props) {
-  const moniter_width = 1536;
-  const moniter_height = 746;
   const {
     width: widgetWidth,
     height: widgetHeight,
@@ -70,8 +68,6 @@ function Weather(props) {
   }, []);
 
   const getWeather = async () => {
-    console.log(Math.round(moniter_width / 5) * widgetWidth);
-    console.log(window.innerHeight);
     /**
      * @todo API KEY는 서버에 넣어 두었다가 가져오는 걸로 구현해야 함
      */
@@ -122,18 +118,18 @@ function Weather(props) {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: widgetSize === "small" ? `20%` : `40%`,
+        height: "20%",
+        left: `${positionleft * 20}%`,
+        top: `${positiontop * 10}%`,
+        position: "absolute",
+      }}
+    >
       <div className={styles.toast}>오늘은 비 소식이 있어요.</div>
       {hourlyWeather.length !== 0 && (
-        <div
-          className={styles.weatherContainer}
-          style={{
-            width:
-              widgetSize === "small"
-                ? `${Math.round(moniter_width / 5) * widgetWidth}%`
-                : `${Math.round(moniter_width / 5) * widgetWidth}%`,
-          }}
-        >
+        <div className={styles.weatherContainer}>
           {widgetSize === "small" ? (
             <div>
               <div
