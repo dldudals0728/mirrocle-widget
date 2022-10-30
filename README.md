@@ -45,3 +45,6 @@ package.json의 scripts에 deploy와 predeploy를 추가한다.
 
 4. project deploy
    이제 deploy 명령어를 실행하면 github page에 업로드가 된다!! (처음엔 오래걸림)
+
+5. 뉴스 위젯 / 달력 위젯 width 고정(참고)
+   뉴스 : 80% / 달력 : 60%로 width가 고정되어 동적으로 변형 안됌

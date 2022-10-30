@@ -4,8 +4,6 @@ import styles from "./AnalogClock.module.css";
 const DEG = 6;
 
 function AnalogClock(props) {
-  const moniter_width = 1536;
-  const moniter_height = 746;
   const {
     width: widgetWidth,
     height: widgetHeight,

@@ -94,14 +94,13 @@ function App() {
   return (
     <div style={styles.mirrocleContainer}>
       {/* <Start /> */}
-      {/* <AnalogClock width={1} height={1} top={0} left={1} />
-      <DigitalClock width={2} height={3} top={0} left={0} />
-      <Weather width={1} height={1} top={1} left={2} />
-      <ToDos width={1} height={6} top={1} left={1} />
-      <SeoulMetro width={2} height={2} top={1} left={1} />
-      <Calendar width={2} height={4} top={0} left={0} /> 
-      <<News /> */}
-      <Calendar width={2} height={4} top={0} left={0} />
+      <AnalogClock width={2} height={1} top={7} left={3} />
+      <DigitalClock width={2} height={3} top={6} left={3} />
+      <Weather width={1} height={1} top={1} left={4} />
+      <ToDos width={1} height={6} top={2} left={0} />
+      <SeoulMetro width={3} height={1} top={3} left={2} />
+      <Calendar width={3} height={4} top={5} left={0} />
+      <News width={4} height={2} top={0} left={0} />
     </div>
   );
 }

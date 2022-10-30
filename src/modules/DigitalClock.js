@@ -52,6 +52,7 @@ function DigitalClock(props) {
         top: `${positiontop * 10}%`,
         width: `${widgetWidth * 20}%`,
         height: `${widgetHeight * 10}%`,
+        position: "absolute",
       }}
     >
       <div className={styles.clockContainer}>

@@ -1,6 +1,5 @@
 .seoulSubwayContainer {
-  padding: 12px;
-  border-radius: 30px;
+  position: absolute;
 }
 
 .lineContainer {
