@@ -6,7 +6,7 @@ const News = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [articles, setArticles] = useState(null);
 
-  const category = "sports";
+  const category = "all";
   const {
     width: widgetWidth,
     height: widgetHeight,
@@ -74,7 +74,15 @@ const News = (props) => {
                 <div className="content">
                   <img src={articles.urlToImage} alt="thumbnail" />
                   <div>
-                    <h3>{articles.title}</h3>
+                    <h3
+                      style={{
+                        border: "white 2px solid",
+                        borderRadius: "10px",
+                        padding: "5px",
+                      }}
+                    >
+                      {articles.title}
+                    </h3>
                     <p>{articles.description}</p>
                   </div>
                 </div>

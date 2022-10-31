@@ -7,7 +7,7 @@ import "./Calendar.css";
 import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 function Calendar(props) {
-  const moniter_height = 746;
+  const moniter_height = 720;
 
   const {
     width: widgetWidth,

@@ -38,29 +38,37 @@ function AnalogClock(props) {
 
   return (
     <div
-      className={styles.container}
+      className={styles.clockContainer}
       style={{
         left: `${positionleft * 20}%`,
         top: `${positiontop * 10}%`,
         width: `${widgetWidth * 20}%`,
         height: `${widgetHeight * 10}%`,
+        position: "absolute",
       }}
     >
-      <div className={styles.clockContainer}>
-        <div className={styles.clock}>
-          <div
-            className={`${styles.hand} ${styles.hour}`}
-            style={{ transform: `rotateZ(${hour + minute / 12}deg)` }}
-          ></div>
-          <div
-            className={`${styles.hand} ${styles.minute}`}
-            style={{ transform: `rotateZ(${minute}deg)` }}
-          ></div>
-          <div
-            className={`${styles.hand} ${styles.second}`}
-            style={{ transform: `rotateZ(${second}deg)` }}
-          ></div>
-
+      <div
+        className={styles.clock}
+        style={{
+          width: `100%`,
+          height: `100%`,
+        }}
+      >
+        <div
+          className={`${styles.hand} ${styles.hour}`}
+          style={{
+            transform: `rotateZ(${hour + minute / 12}deg)`,
+            position: "absolute",
+          }}
+        ></div>
+        <div
+          className={`${styles.hand} ${styles.minute}`}
+          style={{ transform: `rotateZ(${minute}deg)` }}
+        ></div>
+        <div
+          className={`${styles.hand} ${styles.second}`}
+          style={{ transform: `rotateZ(${second}deg)` }}
+        >
           {/* <div
           style={{
             ...styles.hand,

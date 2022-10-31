@@ -39,10 +39,11 @@ body {
 .city {
   font-size: 1.8em;
   font-weight: 600;
+  padding: 5px;
 }
 
 .temp {
-  font-size: 4em;
+  font-size: 2.5em;
 }
 
 .topRightInfo {
@@ -53,7 +54,8 @@ body {
 }
 
 .weatherIcon {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
+  padding: 5px;
   color: white;
 }

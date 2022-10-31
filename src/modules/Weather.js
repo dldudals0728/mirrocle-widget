@@ -121,13 +121,12 @@ function Weather(props) {
     <div
       style={{
         width: widgetSize === "small" ? `20%` : `40%`,
-        height: "20%",
+        height: `${widgetHeight * 10}%`,
         left: `${positionleft * 20}%`,
         top: `${positiontop * 10}%`,
         position: "absolute",
       }}
     >
-      <div className={styles.toast}>오늘은 비 소식이 있어요.</div>
       {hourlyWeather.length !== 0 && (
         <div className={styles.weatherContainer}>
           {widgetSize === "small" ? (
@@ -137,12 +136,10 @@ function Weather(props) {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  paddingLeft: 10,
-                  paddingTop: 10,
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "1.8em" }}>서울특별시</span>
+                  <span style={{ fontSize: "1.3em" }}>서울특별시</span>
                   <span className={styles.temp}>{`${Math.round(
                     hourlyWeather[0].temp
                   )}°`}</span>

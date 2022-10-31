@@ -12,17 +12,16 @@ function ToDos(props) {
 
   useEffect(() => {
     const loadToDos = {
-      0: { text: "react" },
-      1: { text: "종합프로젝트" },
-      2: { text: "과제 제출" },
-      3: { text: "독감 접종" },
-      4: { text: "운동가기" },
+      0: { text: "내일ㄴ뭐해야ㄴ할까ㄴㅋㅋㅁㄴ" },
+      1: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
+      2: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
+      3: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
+      4: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
     };
     setToDos(loadToDos);
   }, []);
   return (
     <div
-      className={styles.toDosContainer}
       style={{
         left: `${positionleft * 20}%`,
         top: `${positiontop * 10}%`,

@@ -9,15 +9,8 @@ import ToDos from "./modules/ToDos";
 import News from "./modules/News";
 import Calendar from "./modules/Calendar";
 
-const widgets = {
-  analogClock: <AnalogClock />,
-  digitalClock: <DigitalClock />,
-  weather: <Weather />,
-  toDos: <ToDos />,
-};
-
 /**
- * @todo 심각한 오류: widget.moduel.css로 적용할 경우 flex가 안될 뿐 아니라, 동적으로 css style을 다루기 어렵다. -> 모니터 사용으로 변경 필요
+ * @todo 심각한 오류: width.moduel.css로 적용할 경우 flex가 안될 뿐 아니라, 동적으로 css style을 다루기 어렵다. -> 모니터 사용으로 변경 필요
  */
 function App() {
   const [widgetInfo, setWidgetInfo] = useState({});
@@ -75,7 +68,7 @@ function App() {
 
   return (
     <div style={styles.mirrocleContainer}>
-      {Object.keys(widgetInfo).map((key, idx) => {
+      {/* {Object.keys(widgetInfo).map((key, idx) => {
         const moduleName = widgetInfo[key].module_name;
         const moduleWidth = widgetInfo[key].size.width;
         const moduleHeight = widgetInfo[key].size.height;
@@ -88,7 +81,14 @@ function App() {
           moduleTop,
           moduleLeft
         );
-      })}
+      })} */}
+      <AnalogClock width={2} height={2} top={7} left={3} />
+      <DigitalClock width={2} height={1} top={6} left={3} />
+      <Weather width={2} height={1} top={2} left={3} />
+      <ToDos width={2} height={2} top={2} left={0} />
+      <SeoulMetro width={3} height={1} top={3} left={2} />
+      <Calendar width={3} height={4} top={4} left={0} />
+      <News width={4} height={2} top={0} left={0} />
     </div>
   );
 }

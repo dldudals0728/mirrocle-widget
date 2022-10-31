@@ -20,6 +20,8 @@
   animation: slide-up;
   animation-fill-mode: forwards;
   visibility: hidden;
+  color: #fff;
+  display: flex;
 }
 
 @keyframes slide-up {
@@ -34,23 +36,15 @@
   }
 }
 
-.content {
-  color: #fff;
-  display: flex;
-}
-
 .content img {
   width: 250px;
   height: 150px;
   margin-right: 50px;
+  margin-top: 20px;
 }
 
 .current .content {
   opacity: 1;
   transform: translateX(0);
   transition: all 0.5s ease;
-}
-
-.title {
-  border: white solid 2px;
 }
