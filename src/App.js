@@ -23,84 +23,72 @@ function App() {
   const [widgetInfo, setWidgetInfo] = useState({});
   const [widgetList, setWidgetList] = useState([]);
 
-  const loadWidgetsInfo = () => {
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
-    const tempWidget = {
-      0: {
-        key: "0",
-        coordinate: { x: 0, y: 0 },
-        module_name: "시계",
-        size: { height: 2, width: 2 },
-        attribute: {},
-      },
-      1: {
-        key: "1",
-        coordinate: { x: 4, y: 0 },
-        module_name: "날씨",
-        size: { height: 1, width: 1 },
-        attribute: {
-          attr_name: "위치 설정",
-          attr_member: {
-            latitude: 0,
-            longitude: 0,
-            city: "",
-          },
-        },
-      },
-      2: {
-        key: "2",
-        coordinate: { x: 3, y: 4 },
-        module_name: "교통정보",
-        size: { height: 3, width: 2 },
-        attribute: {
-          attr_name: "위치 설정",
-        },
-      },
-      3: {
-        key: "3",
-        coordinate: { x: 0, y: 9 },
-        module_name: "ToDo",
-        size: { height: 1, width: 3 },
-        attribute: {
-          attr_name: "ToDo list 편집",
-        },
-      },
-    };
-    setWidgetInfo(() => tempWidget);
+  const loadWidgetsInfo = async () => {
+    // "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/accountIdx=1/json";
+    const url =
+      "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/mirror/changeuser?serialNum=1a2s3d";
+    // let url =
+    //   "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/user/select";
+    // url += `?accountIdx=${"1"}&userIdx=${"5"}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json.status === 200) {
+      console.log("is currect connect");
+      setWidgetInfo(JSON.parse(json.user_template));
+    }
+    console.log(JSON.parse(json.user_template));
+    console.log("test function end");
   };
 
   const getAPIKey = async () => {};
+
+  const setWidgetModule = (moduleName, width, height, top, left) => {
+    let module;
+    if (moduleName === "아날로그 시계") {
+      module = (
+        <AnalogClock width={width} height={height} top={top} left={left} />
+      );
+    } else if (moduleName === "디지털 시계") {
+      module = (
+        <DigitalClock width={width} height={height} top={top} left={left} />
+      );
+    } else if (moduleName === "날씨") {
+      module = <Weather width={width} height={height} top={top} left={left} />;
+    } else if (moduleName === "지하철") {
+      module = (
+        <SeoulMetro width={width} height={height} top={top} left={left} />
+      );
+    } else if (moduleName === "뉴스") {
+      module = <News width={width} height={height} top={top} left={left} />;
+    } else if (moduleName === "ToDo") {
+      module = <ToDos width={width} height={height} top={top} left={left} />;
+    } else if (moduleName === "달력") {
+      module = <Calendar width={width} height={height} top={top} left={left} />;
+    }
+
+    return module;
+  };
 
   useEffect(() => {
     loadWidgetsInfo();
   }, []);
 
-  const testFunc = async () => {
-    console.log("test function start");
-    const url =
-      "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/user/json";
-    const res = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const text = await res.text();
-    console.log(text);
-    console.log("test function end");
-  };
-  testFunc();
   return (
     <div style={styles.mirrocleContainer}>
-      {/* <Start /> */}
-      <AnalogClock width={2} height={1} top={7} left={3} />
-      <DigitalClock width={2} height={3} top={6} left={3} />
-      <Weather width={1} height={1} top={1} left={4} />
-      <ToDos width={1} height={6} top={2} left={0} />
-      <SeoulMetro width={3} height={1} top={3} left={2} />
-      <Calendar width={3} height={4} top={5} left={0} />
-      <News width={4} height={2} top={0} left={0} />
+      {Object.keys(widgetInfo).map((key, idx) => {
+        const moduleName = widgetInfo[key].module_name;
+        const moduleWidth = widgetInfo[key].size.width;
+        const moduleHeight = widgetInfo[key].size.height;
+        const moduleTop = widgetInfo[key].coordinate.y;
+        const moduleLeft = widgetInfo[key].coordinate.x;
+        return setWidgetModule(
+          moduleName,
+          moduleWidth,
+          moduleHeight,
+          moduleTop,
+          moduleLeft
+        );
+      })}
     </div>
   );
 }
