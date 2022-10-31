@@ -81,11 +81,6 @@ function Weather(props) {
     const convertDailyWeather = convertUTCToTime(json.daily);
     const convertHoulyWeather = convertUTCToTime(json.hourly);
     json.current.dt = new Date(json.current.dt * 1000);
-    console.log(json);
-    console.log("=====================");
-    console.log(convertDailyWeather);
-    console.log("=====================");
-    console.log(convertHoulyWeather);
     setHourlyWeather(convertHoulyWeather);
     setDailyWeather(convertDailyWeather);
     checkWeather(convertHoulyWeather);
@@ -103,7 +98,6 @@ function Weather(props) {
 
   const checkWeather = (houlyData) => {
     const today = new Date().toDateString();
-    console.log(houlyData[0].dt.toDateString());
     let todayWeatherRain = false;
 
     houlyData.forEach((value) => {

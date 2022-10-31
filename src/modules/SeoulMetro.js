@@ -63,8 +63,6 @@ function SeoulMetro(props) {
       );
       sideStation.push(split[1].replace("방면", ""));
     });
-    console.log(direction);
-    console.log(sideStation);
 
     const stationInfo = {
       startStation: direction[0],
@@ -84,18 +82,9 @@ function SeoulMetro(props) {
       const url = `http://swopenAPI.seoul.go.kr/api/subway/${API}/json/realtimeStationArrival/0/20/${subwayStationName}`;
       const res = await fetch(url);
       const json = await res.json();
-      console.log("========= real time arrival start =========");
-      console.log("json:", json);
-      console.log("========= real time arrival end =========");
       const filteredList = json.realtimeArrivalList.filter((value) => {
         return value.subwayId === subwayOption[subwayNumber].key;
       });
-      console.log("======= 사용 데이터 start =======");
-      console.log("현재 선택된 호선:", subwayNumber);
-      console.log("현재 선택된 역명:", subwayStationName);
-      console.log("결과값 json");
-      console.log(filteredList);
-      console.log("======= 사용 데이터 end =======");
       const subwayRoute = [];
       const leftTimeList = [];
       const rightTimeList = [];
@@ -116,7 +105,6 @@ function SeoulMetro(props) {
           rightTimeList.push(value.arvlMsg2);
         }
       });
-      console.log("subwayRoute:", subwayRoute);
       getSideStation(subwayRoute);
       setLeftTime(leftTimeList);
       setRightTime(rightTimeList);
