@@ -25,6 +25,8 @@ function App() {
     // url += `?accountIdx=${"1"}&userIdx=${"5"}`;
     const res = await fetch(url);
     const json = await res.json();
+    console.log("useEffect json");
+    console.log(json);
     if (json.status === 200) {
       const convertJson = JSON.parse(json.user_template);
       setWidgetInfo(convertJson);
