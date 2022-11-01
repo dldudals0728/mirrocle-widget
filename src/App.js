@@ -35,7 +35,14 @@ function App() {
 
   const getAPIKey = async () => {};
 
-  const setWidgetModule = (moduleName, width, height, top, left) => {
+  const setWidgetModule = (
+    moduleName,
+    width,
+    height,
+    top,
+    left,
+    attribute = null
+  ) => {
     let module;
     if (moduleName === "아날로그 시계") {
       module = (
@@ -46,17 +53,55 @@ function App() {
         <DigitalClock width={width} height={height} top={top} left={left} />
       );
     } else if (moduleName === "날씨") {
-      module = <Weather width={width} height={height} top={top} left={left} />;
+      module = (
+        <Weather
+          width={width}
+          height={height}
+          top={top}
+          left={left}
+          attribute={attribute}
+        />
+      );
     } else if (moduleName === "지하철") {
       module = (
-        <SeoulMetro width={width} height={height} top={top} left={left} />
+        <SeoulMetro
+          width={width}
+          height={height}
+          top={top}
+          left={left}
+          attribute={attribute}
+        />
       );
     } else if (moduleName === "뉴스") {
-      module = <News width={width} height={height} top={top} left={left} />;
+      module = (
+        <News
+          width={width}
+          height={height}
+          top={top}
+          left={left}
+          attribute={attribute}
+        />
+      );
     } else if (moduleName === "ToDo") {
-      module = <ToDos width={width} height={height} top={top} left={left} />;
+      module = (
+        <ToDos
+          width={width}
+          height={height}
+          top={top}
+          left={left}
+          attribute={attribute}
+        />
+      );
     } else if (moduleName === "달력") {
-      module = <Calendar width={width} height={height} top={top} left={left} />;
+      module = (
+        <Calendar
+          width={width}
+          height={height}
+          top={top}
+          left={left}
+          attribute={attribute}
+        />
+      );
     }
 
     return module;
@@ -88,6 +133,7 @@ function App() {
   useEffect(() => {
     loadWidgetsInfo();
     const pollingEvent = setInterval(() => polling(), 3000);
+    return () => clearInterval(pollingEvent);
   }, []);
 
   return (
@@ -98,12 +144,14 @@ function App() {
         const moduleHeight = widgetInfo[key].size.height;
         const moduleTop = widgetInfo[key].coordinate.y;
         const moduleLeft = widgetInfo[key].coordinate.x;
+        const attribute = widgetInfo[key].attribute.attr_member;
         return setWidgetModule(
           moduleName,
           moduleWidth,
           moduleHeight,
           moduleTop,
-          moduleLeft
+          moduleLeft,
+          attribute
         );
       })}
       {/* <AnalogClock width={2} height={2} top={7} left={3} />

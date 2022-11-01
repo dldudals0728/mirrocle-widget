@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 //npm install --save @fullcalendar/react @fullcalendar/daygrid
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
@@ -8,13 +8,19 @@ import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
 function Calendar(props) {
   const moniter_height = 720;
+  const [gmail, setGmail] = useState("");
 
   const {
     width: widgetWidth,
     height: widgetHeight,
     top: positiontop,
     left: positionleft,
+    attribute,
   } = props;
+
+  useEffect(() => {
+    setGmail(attribute.gMail);
+  }, [attribute]);
 
   return (
     <div
@@ -30,7 +36,8 @@ function Calendar(props) {
         initialView="dayGridMonth"
         googleCalendarApiKey={"AIzaSyCk7vhLZass7qxTKuZ_s95AK5d3UIvlqyo"}
         events={{
-          googleCalendarId: "mokjohn98@gmail.com",
+          googleCalendarId: gmail,
+          // googleCalendarId: "mokjohn98@gmail.com",
         }}
         eventDisplay={"block"}
         height={`${(moniter_height / 5) * widgetHeight}px`}

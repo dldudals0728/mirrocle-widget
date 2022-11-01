@@ -5,13 +5,14 @@ import axios from "axios";
 const News = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [articles, setArticles] = useState(null);
+  const [category, setCategory] = useState("");
 
-  const category = "all";
   const {
     width: widgetWidth,
     height: widgetHeight,
     top: positiontop,
     left: positionleft,
+    attribute,
   } = props;
 
   const autoScroll = true;
@@ -24,6 +25,8 @@ const News = (props) => {
     }
     return () => clearInterval(slideInterval);
   }, [currentSlide]);
+
+  useEffect(() => setCategory(attribute.name), [attribute]);
 
   useEffect(() => {
     setCurrentSlide(0);

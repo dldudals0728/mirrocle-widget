@@ -2,24 +2,47 @@ import { useEffect, useState } from "react";
 import styles from "./ToDos.module.css";
 
 function ToDos(props) {
-  const [toDos, setToDos] = useState({});
+  const [toDos, setToDos] = useState([]);
   const {
     width: widgetWidth,
     height: widgetHeight,
     top: positiontop,
     left: positionleft,
+    attribute,
   } = props;
 
   useEffect(() => {
-    const loadToDos = {
-      0: { text: "내일ㄴ뭐해야ㄴ할까ㄴㅋㅋㅁㄴ" },
-      1: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
-      2: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
-      3: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
-      4: { text: "내일 뭐해야 할까 ㅋㅋㅁㄴㅇㅁㄴ" },
-    };
-    setToDos(loadToDos);
-  }, []);
+    const urgentNotComplateToDos = [];
+    const notUrgentNotComplateToDos = [];
+    const urgentComplateToDos = [];
+    const notUrgentComplateToDos = [];
+
+    Object.keys(attribute.toDos).forEach((key) => {
+      if (attribute.toDos[key].isUrgent && !attribute.toDos[key].isCompleted) {
+        urgentNotComplateToDos.push(attribute.toDos[key].text);
+      } else if (
+        !attribute.toDos[key].isUrgent &&
+        !attribute.toDos[key].isCompleted
+      ) {
+        notUrgentNotComplateToDos.push(attribute.toDos[key].text);
+      } else if (
+        attribute.toDos[key].isUrgent &&
+        attribute.toDos[key].isCompleted
+      ) {
+        urgentComplateToDos.push(attribute.toDos[key].text);
+      } else if (
+        !attribute.toDos[key].isUrgent &&
+        attribute.toDos[key].isCompleted
+      ) {
+        notUrgentComplateToDos.push(attribute.toDos[key].text);
+      }
+    });
+
+    let newToDos = urgentNotComplateToDos.concat(notUrgentNotComplateToDos);
+    newToDos = newToDos.concat(urgentComplateToDos);
+    newToDos = newToDos.concat(notUrgentComplateToDos);
+    setToDos(newToDos);
+  }, [attribute]);
   return (
     <div
       style={{
@@ -30,9 +53,9 @@ function ToDos(props) {
         position: "absolute",
       }}
     >
-      {Object.keys(toDos).map((key) => (
-        <div key={key} className={styles.toDo}>
-          {toDos[key].text}
+      {toDos.map((toDo, idx) => (
+        <div key={idx} className={styles.toDo}>
+          {toDo}
         </div>
       ))}
     </div>

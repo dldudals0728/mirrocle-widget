@@ -58,22 +58,40 @@ function Weather(props) {
     height: widgetHeight,
     top: positiontop,
     left: positionleft,
+    attribute,
   } = props;
   const widgetSize = widgetWidth === 1 ? "small" : "large";
   const [hourlyWeather, setHourlyWeather] = useState([]);
   const [dailyWeather, setDailyWeather] = useState([]);
+  const [city, setCity] = useState("서울특별시");
+  const [coordinate, setCoordinate] = useState({
+    latitude: 37.541,
+    longitude: 126.986,
+  });
   const [isRainy, setIsRainy] = useState(false);
   useEffect(() => {
+    getUserAttribute();
+  }, [attribute]);
+
+  useEffect(() => {
     getWeather();
-  }, []);
+  }, [city]);
+
+  const getUserAttribute = () => {
+    setCoordinate({
+      latitude: attribute.latitude,
+      longitude: attribute.longitude,
+    });
+    setCity(attribute.city);
+  };
 
   const getWeather = async () => {
     /**
      * @todo API KEY는 서버에 넣어 두었다가 가져오는 걸로 구현해야 함
      */
     const API_KEY = API_KEYS.openweathermap;
-    const latitude = 37;
-    const longitude = 127;
+    const latitude = coordinate.latitude;
+    const longitude = coordinate.longitude;
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alert&appid=${API_KEY}&units=metric`
     );
@@ -133,7 +151,7 @@ function Weather(props) {
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "1.3em" }}>서울특별시</span>
+                  <span style={{ fontSize: "1.3em" }}>{city}</span>
                   <span className={styles.temp}>{`${Math.round(
                     hourlyWeather[0].temp
                   )}°`}</span>

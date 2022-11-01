@@ -32,8 +32,8 @@ const subwayOption = {
 
 function SeoulMetro(props) {
   // const {subwayNumber} = props;
-  const subwayNumber = "02호선";
-  const subwayStationName = "사당";
+  const [subwayNumber, setSubwayNumber] = useState("02호선");
+  const [subwayStationName, setSubwayStationName] = useState("사당");
   const [sideStation, setSideStation] = useState({
     startStation: "",
     destStation: "",
@@ -46,6 +46,7 @@ function SeoulMetro(props) {
     height: widgetHeight,
     top: positiontop,
     left: positionleft,
+    attribute,
   } = props;
 
   const [leftTime, setLeftTime] = useState([]);
@@ -72,6 +73,15 @@ function SeoulMetro(props) {
     };
     setSideStation(stationInfo);
   };
+
+  useEffect(() => {
+    setSubwayNumber(
+      attribute.subwayRouteName ? attribute.subwayRouteName : "02호선"
+    );
+    setSubwayStationName(
+      attribute.subwayStationName ? attribute.subwayStationName : "사당"
+    );
+  }, [attribute]);
 
   useEffect(() => {
     const getAPI = async () => {
@@ -108,55 +118,9 @@ function SeoulMetro(props) {
       getSideStation(subwayRoute);
       setLeftTime(leftTimeList);
       setRightTime(rightTimeList);
-      /**
-       * 지하철 노선 역 정보 - 서울 데이터
-       */
-      // const API = API_KEYS.seoulSubwayStationInfo;
-      // const url = `http://openapi.seoul.go.kr:8088/${API}/json/SearchSTNBySubwayLineInfo/1/1000/${" "}/${subwayStationName}`;
-      // const res = await fetch(url);
-      // const json = await res.json();
-      // const subwayInfo = json.SearchSTNBySubwayLineInfo.row;
-      // console.log("========= get subway list start =========");
-      // console.log(subwayInfo);
-      // console.log("========= get subway list end =========");
-      // const supportedLineList = subwayInfo.filter((line) => {
-      //   return Object.keys(subwayOption).includes(line.LINE_NUM);
-      // });
-      // console.log(supportedLineList);
-      // const sortTest = supportedLineList.sort((before, after) =>
-      //   before.FR_CODE < after.FR_CODE ? -1 : 1
-      // );
-      // console.log(sortTest);
-
-      // const subwayByLine = {
-      //   "01호선": [],
-      //   "02호선": [],
-      //   "03호선": [],
-      //   "04호선": [],
-      //   "05호선": [],
-      //   "06호선": [],
-      //   "07호선": [],
-      //   "08호선": [],
-      //   "09호선": [],
-      //   우이신설경전철: [],
-      //   경춘선: [],
-      //   경의선: [],
-      //   수인분당선: [],
-      //   신분당선: [],
-      //   공항철도: [],
-      // };
-
-      // /**
-      //  * 외국인 코드로 하니까 어느정도 순서가 있음.
-      //  */
-      // sortTest.forEach((line) => {
-      //   subwayByLine[line.LINE_NUM].push(line);
-      // });
-
-      // console.log(subwayByLine);
     };
     getAPI();
-  }, []);
+  }, [subwayNumber, subwayStationName]);
   return (
     <div
       className={styles.seoulSubwayContainer}
