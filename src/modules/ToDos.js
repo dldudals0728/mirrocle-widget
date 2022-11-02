@@ -19,28 +19,36 @@ function ToDos(props) {
 
     Object.keys(attribute.toDos).forEach((key) => {
       if (attribute.toDos[key].isUrgent && !attribute.toDos[key].isCompleted) {
-        urgentNotComplateToDos.push(attribute.toDos[key].text);
+        urgentNotComplateToDos.push(attribute.toDos[key]);
       } else if (
         !attribute.toDos[key].isUrgent &&
         !attribute.toDos[key].isCompleted
       ) {
-        notUrgentNotComplateToDos.push(attribute.toDos[key].text);
+        notUrgentNotComplateToDos.push(attribute.toDos[key]);
       } else if (
         attribute.toDos[key].isUrgent &&
         attribute.toDos[key].isCompleted
       ) {
-        urgentComplateToDos.push(attribute.toDos[key].text);
+        urgentComplateToDos.push(attribute.toDos[key]);
       } else if (
         !attribute.toDos[key].isUrgent &&
         attribute.toDos[key].isCompleted
       ) {
-        notUrgentComplateToDos.push(attribute.toDos[key].text);
+        notUrgentComplateToDos.push(attribute.toDos[key]);
       }
     });
 
     let newToDos = urgentNotComplateToDos.concat(notUrgentNotComplateToDos);
     newToDos = newToDos.concat(urgentComplateToDos);
     newToDos = newToDos.concat(notUrgentComplateToDos);
+
+    if (newToDos === []) {
+      newToDos.push({
+        [new Date.now()]: {
+          text: "To Do list가 존재하지 않습니다.",
+        },
+      });
+    }
     setToDos(newToDos);
   }, [attribute]);
   return (
@@ -54,8 +62,14 @@ function ToDos(props) {
       }}
     >
       {toDos.map((toDo, idx) => (
-        <div key={idx} className={styles.toDo}>
-          {toDo}
+        <div
+          key={idx}
+          className={styles.toDo}
+          style={{
+            borderColor: toDo.isUrgent ? "red" : "inherit",
+          }}
+        >
+          {toDo.text}
         </div>
       ))}
     </div>
