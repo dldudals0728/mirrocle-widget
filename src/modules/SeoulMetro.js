@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_KEYS } from "../temp/API";
+import { IP_ADDRESS } from "./IPAddress";
 import styles from "./SeoulMetro.module.css";
 
 const subwayOption = {
@@ -52,6 +52,14 @@ function SeoulMetro(props) {
   const [leftTime, setLeftTime] = useState([]);
   const [rightTime, setRightTime] = useState([]);
 
+  const getAPIKey = async () => {
+    let url = IP_ADDRESS + "/api/select";
+    url += `?name=seoulSubwayRealTime`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return json.api_key;
+  };
+
   const getSideStation = (stationRoute) => {
     const sideStation = [];
     const direction = [];
@@ -88,7 +96,7 @@ function SeoulMetro(props) {
       /**
        * 지하철 실시간 도착정보 - 서울 데이터
        */
-      const API = API_KEYS.seoulSubwayRealTime;
+      const API = await getAPIKey();
       const url = `http://swopenAPI.seoul.go.kr/api/subway/${API}/json/realtimeStationArrival/0/20/${subwayStationName}`;
       const res = await fetch(url);
       const json = await res.json();

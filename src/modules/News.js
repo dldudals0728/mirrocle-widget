@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./News.css";
 import axios from "axios";
+import { IP_ADDRESS } from "./IPAddress";
 
 const News = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,6 +20,14 @@ const News = (props) => {
   let slideInterval;
   let intervalTime = 5000;
 
+  const getAPIKey = async () => {
+    let url = IP_ADDRESS + "/api/select";
+    url += `?name=news`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return json.api_key;
+  };
+
   useEffect(() => {
     if (autoScroll) {
       auto();
@@ -33,9 +42,10 @@ const News = (props) => {
     // async를 사용하는 함수 따로 선언
     const fetchData = async () => {
       try {
+        const API = await getAPIKey();
         const query = category === "all" ? "" : `&category=${category}`;
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=b762678198a44c338a5c0862b05e5cfb`
+          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${API}`
         );
         setArticles(response.data.articles);
       } catch (e) {

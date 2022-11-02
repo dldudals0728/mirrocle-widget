@@ -9,7 +9,7 @@ import {
   BsCloudDrizzleFill,
   BsFillCloudLightningFill,
 } from "react-icons/bs";
-import { API_KEYS } from "../temp/API";
+import { IP_ADDRESS } from "./IPAddress";
 
 const icons = {
   Clouds: {
@@ -69,6 +69,15 @@ function Weather(props) {
     longitude: 126.986,
   });
   const [isRainy, setIsRainy] = useState(false);
+
+  const getAPIKey = async () => {
+    let url = IP_ADDRESS + "/api/select";
+    url += `?name=weather`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return json.api_key;
+  };
+
   useEffect(() => {
     getUserAttribute();
   }, [attribute]);
@@ -89,7 +98,7 @@ function Weather(props) {
     /**
      * @todo API KEY는 서버에 넣어 두었다가 가져오는 걸로 구현해야 함
      */
-    const API_KEY = API_KEYS.openweathermap;
+    const API_KEY = await getAPIKey();
     const latitude = coordinate.latitude;
     const longitude = coordinate.longitude;
     const response = await fetch(
