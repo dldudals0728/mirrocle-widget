@@ -29,7 +29,7 @@ function Calendar(props) {
   };
 
   useEffect(() => {
-    setGmail(attribute.gMail);
+    setGmail(attribute.gmail);
   }, [attribute]);
 
   useEffect(() => {

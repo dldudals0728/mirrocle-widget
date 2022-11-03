@@ -44,21 +44,20 @@ const News = (props) => {
       try {
         const API = await getAPIKey();
         const query = category === "all" ? "" : `&category=${category}`;
-        const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${API}`
-        );
+        const url = `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${API}`;
+        const response = await axios.get(url);
+        // const response = await fetch(url);
         setArticles(response.data.articles);
       } catch (e) {
         console.log(e);
       }
     };
-    fetchData().then((r) => console.log("ok"));
+    fetchData();
   }, [category]);
 
   const slideLength = 20;
   const nextSlide = () => {
     setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1);
-    console.log("next");
   };
 
   function auto() {

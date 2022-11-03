@@ -182,7 +182,7 @@ function Weather(props) {
             <div>
               <div className={styles.topInfo}>
                 <div className={styles.topLeftInfo}>
-                  <span className={styles.city}>서울특별시</span>
+                  <span className={styles.city}>{city}</span>
                   <span className={styles.temp}>{`${Math.round(
                     hourlyWeather[0].temp
                   )}°`}</span>
