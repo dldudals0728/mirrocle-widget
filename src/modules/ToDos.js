@@ -11,7 +11,7 @@ function ToDos(props) {
     attribute,
   } = props;
 
-  useEffect(() => {
+  const getToDos = () => {
     const urgentNotComplateToDos = [];
     const notUrgentNotComplateToDos = [];
     const urgentComplateToDos = [];
@@ -38,18 +38,26 @@ function ToDos(props) {
       }
     });
 
-    let newToDos = urgentNotComplateToDos.concat(notUrgentNotComplateToDos);
-    newToDos = newToDos.concat(urgentComplateToDos);
-    newToDos = newToDos.concat(notUrgentComplateToDos);
+    const newToDos = [].concat(
+      urgentNotComplateToDos,
+      notUrgentNotComplateToDos,
+      urgentComplateToDos,
+      notUrgentComplateToDos
+    );
 
-    if (newToDos === []) {
+    if (newToDos.length === 0) {
+      console.log("to do is empty!");
       newToDos.push({
-        [new Date.now()]: {
-          text: "To Do list가 존재하지 않습니다.",
-        },
+        text: "To Do list가 존재하지 않습니다 !",
+        isCompleted: false,
+        isUrgent: false,
       });
     }
     setToDos(newToDos);
+  };
+
+  useEffect(() => {
+    getToDos();
   }, [attribute]);
   return (
     <div

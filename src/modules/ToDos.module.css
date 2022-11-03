@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Righteous&display=swap");
 
 .toDo {
   background: #091921;
@@ -12,5 +12,5 @@
 
   border: 2px solid rgb(44, 96, 194);
   color: white;
-  font-family: "Gamja Flower", cursive;
+  font-family: "Do Hyeon", cursive;
 }
