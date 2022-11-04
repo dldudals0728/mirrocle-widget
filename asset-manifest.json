@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/mirrocle-widget/static/css/main.d047cc6e.css",
-    "main.js": "/mirrocle-widget/static/js/main.03807b4e.js",
+    "main.css": "/mirrocle-widget/static/css/main.f365e6b7.css",
+    "main.js": "/mirrocle-widget/static/js/main.f87a81ef.js",
     "static/js/787.42eb1403.chunk.js": "/mirrocle-widget/static/js/787.42eb1403.chunk.js",
     "index.html": "/mirrocle-widget/index.html",
-    "main.d047cc6e.css.map": "/mirrocle-widget/static/css/main.d047cc6e.css.map",
-    "main.03807b4e.js.map": "/mirrocle-widget/static/js/main.03807b4e.js.map",
+    "main.f365e6b7.css.map": "/mirrocle-widget/static/css/main.f365e6b7.css.map",
+    "main.f87a81ef.js.map": "/mirrocle-widget/static/js/main.f87a81ef.js.map",
     "787.42eb1403.chunk.js.map": "/mirrocle-widget/static/js/787.42eb1403.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d047cc6e.css",
-    "static/js/main.03807b4e.js"
+    "static/css/main.f365e6b7.css",
+    "static/js/main.f87a81ef.js"
   ]
 }
