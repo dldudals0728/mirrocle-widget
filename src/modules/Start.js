@@ -4,7 +4,7 @@ import styles from "./Start.module.css";
 
 function Start() {
   const [serialNumber, setSerialNumber] = useState("");
-  useEffect(() => setSerialNumber("ad99290c25b"), []);
+  useEffect(() => setSerialNumber("1a2s3d"), []);
 
   return (
     <div className={styles.QRContainer}>
@@ -14,7 +14,7 @@ function Start() {
       <QRCodeCanvas
         includeMargin={true}
         size={240}
-        bgColor="#A0A0A0"
+        bgColor="#FFFFFF"
         value={serialNumber}
       />
       <span

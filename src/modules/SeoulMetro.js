@@ -30,6 +30,8 @@ const subwayOption = {
   // 9908: "김포 도시철도",
 };
 
+let timer = undefined;
+
 function SeoulMetro(props) {
   // const {subwayNumber} = props;
   const [subwayNumber, setSubwayNumber] = useState("02호선");
@@ -130,7 +132,12 @@ function SeoulMetro(props) {
   };
 
   useEffect(() => {
-    getAPI();
+    if (timer !== undefined) {
+      clearInterval(timer);
+      timer = setInterval(getAPI, 5000);
+    } else {
+      timer = setInterval(getAPI, 5000);
+    }
   }, [subwayNumber, subwayStationName]);
   return (
     <div

@@ -8,6 +8,7 @@ import Start from "./modules/Start";
 import ToDos from "./modules/ToDos";
 import News from "./modules/News";
 import Calendar from "./modules/Calendar";
+import Default from "./modules/Default";
 
 /**
  * @todo 심각한 오류: width.moduel.css로 적용할 경우 flex가 안될 뿐 아니라, 동적으로 css style을 다루기 어렵다. -> 모니터 사용으로 변경 필요
@@ -27,12 +28,15 @@ function App() {
     const json = await res.json();
     console.log("useEffect json");
     console.log(json);
+    console.log(json.status);
     if (json.status === 200) {
       const convertJson = JSON.parse(json.user_template);
       setIsConnect(true);
       setWidgetInfo(convertJson);
-    } else {
+    } else if (json.status === 300) {
       setIsConnect(false);
+    } else if (json.status === 500) {
+      setIsConnect(true);
     }
   };
 
@@ -116,7 +120,9 @@ function App() {
       "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/mirror/changeuser?serialNum=1a2s3d";
     const res = await fetch(url);
     const json = await res.json();
+    console.log(json.status);
     if (json.status === 200) {
+      setIsConnect(true);
       const convertJson = JSON.parse(json.user_template);
       console.log(convertJson);
       setWidgetInfo((prevWidget) => {
@@ -127,10 +133,11 @@ function App() {
           return prevWidget;
         }
       });
-      // if (JSON.stringify(widgetInfo) != JSON.stringify(convertJson)) {
-      //   console.log("위젯 변경!");
-      //   setWidgetInfo(convertJson);
-      // }
+    } else if (json.status === 300) {
+      setIsConnect(false);
+    } else if (json.status === 500) {
+      setIsConnect(true);
+      setWidgetInfo({});
     }
   };
 
@@ -141,27 +148,36 @@ function App() {
   }, []);
 
   return (
+    // Object.keys(widgetInfo).map((key, idx) => {
     <div style={styles.mirrocleContainer}>
       {isConnect ? (
-        Object.keys(widgetInfo).map((key, idx) => {
-          const moduleName = widgetInfo[key].module_name;
-          const moduleWidth = widgetInfo[key].size.width;
-          const moduleHeight = widgetInfo[key].size.height;
-          const moduleTop = widgetInfo[key].coordinate.y;
-          const moduleLeft = widgetInfo[key].coordinate.x;
-          const attribute = widgetInfo[key].attribute.attr_member;
-          if (moduleName === "날씨") {
-            console.log(attribute);
-          }
-          return setWidgetModule(
-            moduleName,
-            moduleWidth,
-            moduleHeight,
-            moduleTop,
-            moduleLeft,
-            attribute
-          );
-        })
+        Object.keys(widgetInfo).length !== 0 ? (
+          Object.keys(widgetInfo).map((key, idx) => {
+            const moduleName = widgetInfo[key].module_name;
+            const moduleWidth = widgetInfo[key].size.width;
+            const moduleHeight = widgetInfo[key].size.height;
+            const moduleTop = widgetInfo[key].coordinate.y;
+            const moduleLeft = widgetInfo[key].coordinate.x;
+            const attribute = widgetInfo[key].attribute.attr_member;
+            if (moduleName === "날씨") {
+              console.log(attribute);
+            }
+            return (
+              <div>
+                {setWidgetModule(
+                  moduleName,
+                  moduleWidth,
+                  moduleHeight,
+                  moduleTop,
+                  moduleLeft,
+                  attribute
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <Default />
+        )
       ) : (
         <Start />
       )}
