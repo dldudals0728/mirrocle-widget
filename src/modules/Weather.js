@@ -80,6 +80,10 @@ function Weather(props) {
 
   useEffect(() => {
     getUserAttribute();
+    /**
+     * weather attribute가 처음 호출 시에만 옳바른 값을 가지고 있고, 그 후에는 초기화가 됨.
+     */
+    console.log("weather attribute", attribute);
   }, [attribute]);
 
   useEffect(() => {
@@ -91,7 +95,7 @@ function Weather(props) {
       latitude: attribute.latitude,
       longitude: attribute.longitude,
     });
-    setCity(attribute.city);
+    setCity((prev) => (prev === "" ? "서울특별시" : attribute.city));
   };
 
   const getWeather = async () => {

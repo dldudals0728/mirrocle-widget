@@ -8,7 +8,7 @@ import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import { IP_ADDRESS } from "./IPAddress";
 
 function Calendar(props) {
-  const moniter_height = 720;
+  const moniter_height = 800;
   const [gmail, setGmail] = useState("");
   const [googleCalendarAPI, setGoogleCalendarAPI] = useState("");
 
@@ -54,7 +54,7 @@ function Calendar(props) {
           // googleCalendarId: "mokjohn98@gmail.com",
         }}
         eventDisplay={"block"}
-        height={`${(moniter_height / 5) * widgetHeight}px`}
+        height={`${10 * widgetHeight}vh`}
       />
     </div>
   );

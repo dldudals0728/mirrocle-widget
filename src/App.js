@@ -14,7 +14,7 @@ import Calendar from "./modules/Calendar";
  */
 function App() {
   const [widgetInfo, setWidgetInfo] = useState({});
-  const [widgetList, setWidgetList] = useState([]);
+  const [isConnect, setIsConnect] = useState(true);
 
   const loadWidgetsInfo = async () => {
     // "http://mirror-env.eba-pjjtmgim.ap-northeast-2.elasticbeanstalk.com/accountIdx=1/json";
@@ -29,7 +29,10 @@ function App() {
     console.log(json);
     if (json.status === 200) {
       const convertJson = JSON.parse(json.user_template);
+      setIsConnect(true);
       setWidgetInfo(convertJson);
+    } else {
+      setIsConnect(false);
     }
   };
 
@@ -115,6 +118,7 @@ function App() {
     const json = await res.json();
     if (json.status === 200) {
       const convertJson = JSON.parse(json.user_template);
+      console.log(convertJson);
       setWidgetInfo((prevWidget) => {
         if (JSON.stringify(prevWidget) != json.user_template) {
           console.log("위젯 업데이트");
@@ -131,36 +135,36 @@ function App() {
   };
 
   useEffect(() => {
-    loadWidgetsInfo();
-    const pollingEvent = setInterval(() => polling(), 3000);
+    // loadWidgetsInfo();
+    const pollingEvent = setInterval(() => polling(), 1000);
     return () => clearInterval(pollingEvent);
   }, []);
 
   return (
     <div style={styles.mirrocleContainer}>
-      {Object.keys(widgetInfo).map((key, idx) => {
-        const moduleName = widgetInfo[key].module_name;
-        const moduleWidth = widgetInfo[key].size.width;
-        const moduleHeight = widgetInfo[key].size.height;
-        const moduleTop = widgetInfo[key].coordinate.y;
-        const moduleLeft = widgetInfo[key].coordinate.x;
-        const attribute = widgetInfo[key].attribute.attr_member;
-        return setWidgetModule(
-          moduleName,
-          moduleWidth,
-          moduleHeight,
-          moduleTop,
-          moduleLeft,
-          attribute
-        );
-      })}
-      {/* <AnalogClock width={2} height={2} top={7} left={3} />
-      <DigitalClock width={2} height={1} top={6} left={3} />
-      <Weather width={2} height={1} top={2} left={3} />
-      <ToDos width={2} height={2} top={2} left={0} />
-      <SeoulMetro width={3} height={1} top={3} left={2} />
-      <Calendar width={3} height={4} top={4} left={0} />
-      <News width={4} height={2} top={0} left={0} /> */}
+      {isConnect ? (
+        Object.keys(widgetInfo).map((key, idx) => {
+          const moduleName = widgetInfo[key].module_name;
+          const moduleWidth = widgetInfo[key].size.width;
+          const moduleHeight = widgetInfo[key].size.height;
+          const moduleTop = widgetInfo[key].coordinate.y;
+          const moduleLeft = widgetInfo[key].coordinate.x;
+          const attribute = widgetInfo[key].attribute.attr_member;
+          if (moduleName === "날씨") {
+            console.log(attribute);
+          }
+          return setWidgetModule(
+            moduleName,
+            moduleWidth,
+            moduleHeight,
+            moduleTop,
+            moduleLeft,
+            attribute
+          );
+        })
+      ) : (
+        <Start />
+      )}
     </div>
   );
 }

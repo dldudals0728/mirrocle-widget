@@ -52,6 +52,8 @@ function SeoulMetro(props) {
   const [leftTime, setLeftTime] = useState([]);
   const [rightTime, setRightTime] = useState([]);
 
+  const polling = () => {};
+
   const getAPIKey = async () => {
     let url = IP_ADDRESS + "/api/select";
     url += `?name=seoulSubwayRealTime`;
@@ -91,42 +93,43 @@ function SeoulMetro(props) {
     );
   }, [attribute]);
 
-  useEffect(() => {
-    const getAPI = async () => {
-      /**
-       * 지하철 실시간 도착정보 - 서울 데이터
-       */
-      const API = await getAPIKey();
-      const url = `http://swopenAPI.seoul.go.kr/api/subway/${API}/json/realtimeStationArrival/0/20/${subwayStationName}`;
-      const res = await fetch(url);
-      const json = await res.json();
-      const filteredList = json.realtimeArrivalList.filter((value) => {
-        return value.subwayId === subwayOption[subwayNumber].key;
-      });
-      const subwayRoute = [];
-      const leftTimeList = [];
-      const rightTimeList = [];
-      filteredList.forEach((value) => {
-        let subwayRouteName = "";
-        if (subwayNumber === "02호선") {
-          subwayRouteName += `${value.trainLineNm}(${value.updnLine})`;
-        } else {
-          subwayRouteName += value.trainLineNm;
-        }
-        if (!subwayRoute.includes(subwayRouteName)) {
-          subwayRoute.push(subwayRouteName);
-        }
+  const getAPI = async () => {
+    /**
+     * 지하철 실시간 도착정보 - 서울 데이터
+     */
+    const API = await getAPIKey();
+    const url = `http://swopenAPI.seoul.go.kr/api/subway/${API}/json/realtimeStationArrival/0/20/${subwayStationName}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    const filteredList = json.realtimeArrivalList.filter((value) => {
+      return value.subwayId === subwayOption[subwayNumber].key;
+    });
+    const subwayRoute = [];
+    const leftTimeList = [];
+    const rightTimeList = [];
+    filteredList.forEach((value) => {
+      let subwayRouteName = "";
+      if (subwayNumber === "02호선") {
+        subwayRouteName += `${value.trainLineNm}(${value.updnLine})`;
+      } else {
+        subwayRouteName += value.trainLineNm;
+      }
+      if (!subwayRoute.includes(subwayRouteName)) {
+        subwayRoute.push(subwayRouteName);
+      }
 
-        if (subwayRouteName === subwayRoute[0]) {
-          leftTimeList.push(value.arvlMsg2);
-        } else {
-          rightTimeList.push(value.arvlMsg2);
-        }
-      });
-      getSideStation(subwayRoute);
-      setLeftTime(leftTimeList);
-      setRightTime(rightTimeList);
-    };
+      if (subwayRouteName === subwayRoute[0]) {
+        leftTimeList.push(value.arvlMsg2);
+      } else {
+        rightTimeList.push(value.arvlMsg2);
+      }
+    });
+    getSideStation(subwayRoute);
+    setLeftTime(leftTimeList);
+    setRightTime(rightTimeList);
+  };
+
+  useEffect(() => {
     getAPI();
   }, [subwayNumber, subwayStationName]);
   return (
